@@ -1,12 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ROUTES, { RenderRoutes } from "./routes";
 
 function App() {
+  const history = useHistory();
+
+  function logout() {
+    localStorage.removeItem("user");
+    history.push("/");
+  }
+
   return (
     <div style={{ display: "flex", height: "100vh", alignItems: "stretch" }}>
       <div style={{ flex: 0.3, backgroundColor: "#f2f2f2" }}>
         {displayRouteMenu(ROUTES)}
+        <button onClick={logout}>Log Out</button>
       </div>
       <div>
         <RenderRoutes routes={ROUTES} />

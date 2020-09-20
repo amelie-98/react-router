@@ -1,13 +1,20 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Josh from "./josh.js";
+import Login from "./Login.js";
 
 const ROUTES = [
-    { path: "/", key: "ROOT", exact: true, component: () => <h1>Log in</h1> },
+    { path: "/", key: "ROOT", exact: true, component: Login },
     {
         path: "/app",
         key: "APP",
-        component: RenderRoutes,
+        component: (props) => {
+            if (!localStorage.getItem("user")) {
+                alert("You need to log in to access app routes");
+                return <Redirect to={"/"} />;
+            }
+            return <RenderRoutes {...props} />;
+        },
         routes: [
             {
                 path: "/app",
