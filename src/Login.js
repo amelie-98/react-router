@@ -5,21 +5,31 @@ export default function Login() {
     const [user, updateUser] = useState("");
     const history = useHistory();
 
-    function handleLogin(){
+    function handleLogin() {
         localStorage.setItem("user", user);
-        history.push("/app")
+        history.push("/app");
     }
 
-    if (localStorage.getItem("user")){
-        alert("You're already authenticated in localStorage and being redirected into the app.");
+    if (localStorage.getItem("user")) {
+        alert(
+            "You're already authenticated in localStorage and being redirected into the app."
+        );
         return <Redirect to={"/app"} />;
     }
 
     return (
-        <div style={{ padding: 50}}>
+        <div style={{ padding: 50 }}>
             <h1>Log in</h1>
             <div>
                 <label>User (anything will work)</label>
-                <input value={user} onChange={e => upDateUser}>
-    )
+                <input
+                    value={user}
+                    onChange={(e) => updateUser(e.target.value)}
+                />
+                <button diable={!user} onClick={handleLogin}>
+                    Log In
+                </button>
+            </div>
+        </div>
+    );
 }
